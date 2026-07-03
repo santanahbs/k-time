@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>K-TIME | Monitoramento de Produção</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-area">
+        <div class="logo-box"><img src="img/logo_kmf.png" alt="KMF Brindes" /></div>
+        <div class="divider"></div>
+        <div class="title-block">
+          <h1>K-TIME</h1>
+          <p>MONITORAMENTO DE PRODUÇÃO</p>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <div class="date-card">
+          <span class="calendar-icon">▦</span>
+          <div><strong id="currentDate">--/--/----</strong><small id="currentTime">--:--:--</small></div>
+        </div>
+        <div class="bell-wrap"><span class="bell">🔔</span><span class="badge" id="alertCount">0</span></div>
+        <div class="operator"><span class="avatar">👤</span><div><strong>Operador</strong><small>Turno A</small></div></div>
+      </div>
+    </header>
+
+    <section class="kpi-grid">
+      <article class="kpi-card"><div class="kpi-icon blue">🏭</div><div><span>PRODUÇÃO HOJE</span><strong id="kpiProducaoHoje">0 un</strong><small>Meta: 22.000 un <b id="metaPercent">0%</b></small><div class="mini-bar"><i id="metaBar"></i></div></div></article>
+      <article class="kpi-card"><div class="kpi-icon green">⏱️</div><div><span>PRODUTIVIDADE</span><strong id="kpiProdutividade">0%</strong><small>Média das injetoras</small></div></article>
+      <article class="kpi-card"><div class="kpi-icon purple">📈</div><div><span>PEÇAS PRODUZIDAS (MÊS)</span><strong id="kpiMes">0 un</strong><small>Este mês</small></div></article>
+      <article class="kpi-card"><div class="kpi-icon orange">⏱️</div><div><span>TEMPO MÉDIO DE CICLO</span><strong id="kpiCiclo">0 s</strong><small>Média geral</small></div></article>
+      <article class="kpi-card"><div class="kpi-icon blue">🕒</div><div><span>PRÓXIMA PARADA</span><strong>14:00</strong><small>Almoço / Limpeza</small></div></article>
+      <article class="status-summary"><div><span class="dot green-dot"></span><strong id="qtdLigadas">0 LIGADAS</strong></div><div><span class="dot red-dot"></span><strong id="qtdParadas">0 PARADAS</strong></div></article>
+    </section>
+
+    <main class="panel">
+      <div class="section-head">
+        <h2>🏭 INJETORAS</h2>
+        <div class="packer" id="empacotadeiraBox">
+          <span>🤖 EMPACOTADEIRA</span>
+          <strong id="empStatus">DESLIGADA</strong>
+          <button class="toggle off" id="empToggle" type="button" aria-label="Status empacotadeira"><i></i></button>
+        </div>
+        <button class="filter-btn">🔽 FILTRAR</button>
+      </div>
+      <section class="machines-grid" id="machinesGrid"></section>
+    </main>
+  </div>
+
+  <template id="machineCardTemplate">
+    <article class="machine-card">
+      <div class="machine-head">
+        <div><h3></h3><span class="ton"></span></div>
+        <div class="status-pill"><i></i><b></b></div>
+      </div>
+      <div class="aux-row">
+        <div class="aux-indicator esteira off" title="Status da esteira">
+          <span class="aux-ico" aria-hidden="true">
+            <svg viewBox="0 0 64 64"><path class="belt-body" d="M10 34h44a7 7 0 0 1 0 14H10a7 7 0 0 1 0-14Z"/><path class="belt-line" d="M13 41h38"/><circle cx="16" cy="48" r="4"/><circle cx="32" cy="48" r="4"/><circle cx="48" cy="48" r="4"/><path class="belt-leg" d="M20 52l-4 8M44 52l4 8M28 28h9l5 6H23l5-6Z"/></svg>
+          </span>
+          <span class="aux-text"><small>ESTEIRA</small><b>OFF</b></span>
+        </div>
+        <div class="aux-indicator robo off" title="Status do robô">
+          <span class="aux-ico" aria-hidden="true">
+            <svg viewBox="0 0 64 64"><path class="robot-base" d="M22 50h20v8H22z"/><path class="robot-arm" d="M30 48V32l11-10"/><circle class="robot-joint" cx="30" cy="32" r="5"/><circle class="robot-joint" cx="42" cy="22" r="5"/><path class="robot-claw" d="M44 18l9-7M45 24l10 5M52 11l5 4M55 29l4-5"/><path class="robot-body" d="M18 42h28v9H18z"/></svg>
+          </span>
+          <span class="aux-text"><small>ROBÔ</small><b>OFF</b></span>
+        </div>
+      </div>
+      <div class="machine-img"><img src="img/injetora.png" alt="Injetora Chen Hsong" /></div>
+      <div class="machine-meta">
+        <div><span>STATUS</span><strong class="produto">-</strong></div>
+        <div><span>CICLO:</span><strong class="ciclo">--</strong></div>
+      </div>
+      <div class="obs"></div>
+      <div class="progress-row">
+        <div class="progress-line"><i></i></div>
+        <div class="percent">0%</div>
+      </div>
+      <footer>
+        <div class="next-icon">📦</div>
+        <div class="next"><span>PRÓXIMO NA FILA</span><strong>-</strong></div>
+        <div class="qty"><span>Qtd. Prevista</span><strong>0 un</strong></div>
+      </footer>
+    </article>
+  </template>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
