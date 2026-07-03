@@ -1,0 +1,30 @@
+function doGet() {
+
+  const planilha = SpreadsheetApp.getActiveSpreadsheet();
+  const aba = planilha.getSheetByName("PCP");
+
+  // INJETORAS - atualizado para incluir colunas ESTEIRA e ROBO
+  const dadosInjetoras = aba.getRange("A2:M10").getValues();
+  const cabecalho = dadosInjetoras.shift();
+
+  const injetoras = dadosInjetoras.map(linha => {
+    let obj = {};
+    cabecalho.forEach((titulo, i) => {
+      obj[String(titulo).trim()] = linha[i];
+    });
+    return obj;
+  });
+
+  // EMPACOTADEIRA
+  const dadosEmp = aba.getRange("A13:D14").getValues();
+  const cabEmp = dadosEmp.shift();
+
+  let empacotadeira = {};
+  cabEmp.forEach((titulo, i) => {
+    empacotadeira[String(titulo).trim()] = dadosEmp[0][i];
+  });
+
+  return ContentService
+    .createTextOutput(JSON.stringify({ injetoras, empacotadeira }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
